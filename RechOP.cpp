@@ -2,11 +2,17 @@
 //
 
 #include "RechOP.h"
+#include "parseur/parseur.h"
 
 using namespace std;
 
 int main()
 {
+	// PARSAGE
+
+	// TRAINTEMENT INITIAL
+
+	// CALCUL 
 	cout << "Hello CMake." << endl;
 	return 0;
 }
