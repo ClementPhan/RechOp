@@ -74,18 +74,56 @@ int score(vector<tournee> tournees, vector<int> fournisseurs_sous_traites, vecto
 	return cout;
 }
 
-void generation(vector<groupe>& groupes,vector<vector<int> >& fournisseur){
-    for (int i=0;i<fournisseur.size();i){
-        groupe a;
-        a.nombre_de_fournisseurs=rand()%3+1;
-        for (int j=0;j<a.nombre_de_fournisseurs;j++){
-            a.fournisseurs[j]=fournisseur[i][0];
-            i++;
+bool netoyage(vector<int> a){
+        bool ok=true;
+        for (int j=2;j<10;j++){
+            if (a[j]!=0){
+                return(false);}
         }
-        groupes.resize(groupes.size()+1);
-        groupes[groupes.size()-1]=a;
+        return(true);
+}
+
+void generation(vector<groupe>& groupes,vector<vector<int> >& fournisseur){
+    int taille=0;
+    for (int i=0;i<fournisseur.size();){
+        groupe a;
+        a.nombre_de_fournisseurs=rand()%4+1;
+        for (int j=0;j<a.nombre_de_fournisseurs;j++){
+            while ((netoyage(fournisseur[i]))&&(i<fournisseur.size()-1)) i++;
+            if (i<fournisseur.size()-1) {a.fournisseurs[j]=fournisseur[i][0];i++;}
+            else {i++;break;}
+        }
+        taille++;
+        groupes.resize(taille);
+        groupes[taille-1]=a;
+    }   
+}
+int cogroupe(groupe a,vector<vector<int> > A){
+    int co=0;
+    for (int i=0;i<a.nombre_de_fournisseurs-1;i++){
+        for (int j=1;j<a.nombre_de_fournisseurs;j++){
+            co=co+A[a.fournisseurs[i]][a.fournisseurs[j]]+A[a.fournisseurs[j]][a.fournisseurs[i]];
+        }
+    }
+    return(co);
+}
+
+void optimisation(vector<groupe>& groupes, vector<vector<int> > A){
+    for (int i=0;i<10000;i++){
+        int p=rand()%groupes.size();
+        int l=rand()%groupes.size();
+        int a=rand()%groupes[p].nombre_de_fournisseurs;
+        int b=rand()%groupes[l].nombre_de_fournisseurs;
+        int cou1=cogroupe(groupes[p],A)+cogroupe(groupes[l],A);
+        swap(groupes[p].fournisseurs[a],groupes[p].fournisseurs[a]);
+        int cou2=cogroupe(groupes[p],A)+cogroupe(groupes[l],A);
+        if (cou1>cou2){
+            swap(groupes[p].fournisseurs[a],groupes[p].fournisseurs[a]);
+        }
+        cout<< cou1<<" "<<cou2<<endl;
     }
 }
+
 
 
 int main()
@@ -109,9 +147,11 @@ int main()
     for (int i=0;i<fournisseur.size();i++){
         fournisseurs_sous_traites.resize(i+1,i);
     }
+    vector<vector<int> > ad=adj(fournisseur,A);
 
     generation(groupes,fournisseur);
+    cout<<"ok"<<endl;
     cout<<groupes.size()<<endl;
-
+    optimisation(groupes,ad);
     return output(tournees,groupes,fournisseurs_sous_traites);
 }
