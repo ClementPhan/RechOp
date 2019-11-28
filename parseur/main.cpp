@@ -15,11 +15,17 @@ using namespace std;
 
 int main()
 {
-    string const adresse="C:/Users/hugues/Desktop/KIRO/inst.in";
+    string const adresse="C:/Users/hugues/Desktop/RechOp/Instance-propre.in";
     vector<int> instances;
-    vector<vector<int> > A=lecture(adresse, instances);
-
+    vector<int> usine;
+    vector<int> depot;
+    vector<vector<int> > fournisseur;
+    vector<vector<int> > A=lecture(adresse,instances,usine,depot,fournisseur);
+    cout<<instances[0]<<endl;
     /*  CODER  */
+    for (int i=0;i<A.size();i++){
+        cout<<A[i][0]<<" "<<A[i].size()<<endl;
+    }
 
     ecriture(A);
     return 0;

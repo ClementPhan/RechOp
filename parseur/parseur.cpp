@@ -25,7 +25,7 @@ vector<int> split(const string& s, char delimiter){
 }
 
 
-vector<vector<int> > lecture(string adresse, vector<int>& instances){       // lire le fichier et stocker les variables dans les vecteurs.
+vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>& usine,vector<int>& depot,vector<vector<int> >& fournisseur){       // lire le fichier et stocker les variables dans les vecteurs.
     ifstream myflux(adresse.c_str());
     if (myflux){
         string ligne;
@@ -33,7 +33,14 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances){       // l
         cout<<"première ligne : "<<ligne<<endl;
         instances=split(ligne,' ');   //////////   Definition des instances  //////////
         vector<vector<int> > A;
-        int i=0;
+        int j=0,i=0;
+        while (getline(myflux,ligne)&&ligne[0]=='f'){
+            fournisseur.resize(j+1);
+            fournisseur[j]=split(ligne,' ');
+        }
+        A.resize(1);
+        A[0]=split(ligne,' ');
+        i++;
         while (getline(myflux,ligne)){
               A.resize(i+1);                             // lecture de toute les lignes
               A[i]=split(ligne,' ');     // A[i] doit être la ligne d'instance
@@ -51,7 +58,7 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances){       // l
 
 
 void ecriture(vector<vector<int> > A){
-    string const nomFichier("C:/Users/hugues/Desktop/KIRO/solution.txt");
+    string const nomFichier("C:/Users/hugues/Desktop/solution.txt");
     ofstream monFlux(nomFichier.c_str());
     for (int i=0;i<A.size();i++){
         for (int j=0;j<A[i].size();j++){
