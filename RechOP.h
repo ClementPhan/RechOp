@@ -14,7 +14,7 @@ struct tournee {
 	int groupe;
 	int semaine;
 	int nombre_de_fournisseurs;
-	int fournisseurs[4];
+	int fournisseurs[6];
 };
 
 struct groupe {
