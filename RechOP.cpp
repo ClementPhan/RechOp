@@ -1,6 +1,8 @@
 ﻿// RechOP.cpp : Defines the entry point for the application.
 //
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "RechOP.h"
 
 int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournisseurs_sous_traites) {
@@ -9,7 +11,7 @@ int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournis
 	ofstream monFlux(nomFichier.c_str());
 
 	// Sous-traitants
-	monFlux << "x" << fournisseurs_sous_traites.size() << " f";
+    monFlux << "x " << fournisseurs_sous_traites.size() << " f";
 	for (int i = 0; i < fournisseurs_sous_traites.size(); i++) {
 		monFlux << " " << fournisseurs_sous_traites[i];
 	}
@@ -70,13 +72,27 @@ int score(vector<tournee> tournees, vector<int> fournisseurs_sous_traites, vecto
 	return cout;
 }
 
+void generation(vector<groupe>& groupes,vector<vector<int> >& fournisseur){
+    for (int i=0;i<fournisseur.size();i){
+        groupe a;
+        a.nombre_de_fournisseurs=rand()%3+1;
+        for (int j=0;j<a.nombre_de_fournisseurs;j++){
+            a.fournisseurs[j]=fournisseur[i][0];
+            i++;
+        }
+        groupes.resize(groupes.size()+1);
+        groupes[groupes.size()-1]=a;
+    }
+}
+
 
 int main()
 {
+    srand(time(NULL));
 	// PARSAGE
 	vector<int> instances, usine, depot;
     vector<vector<int> > fournisseur, A;
-    string adresse = "C:/Users/hugues/Desktop/RechOp/Instance-propre.txt";
+    string adresse = "C:/Users/hugues/Desktop/RechOp/Instance-plus-propre.csv";
 
 	A = lecture(adresse, instances, usine, depot, fournisseur);
 
@@ -87,12 +103,13 @@ int main()
 
 
 	// CALCUL 
-    cout<<fournisseur.size()<<endl;
+    cout<<A.size()<<endl;
     for (int i=0;i<fournisseur.size();i++){
         fournisseurs_sous_traites.resize(i+1,i);
     }
 
-
+    generation(groupes,fournisseur);
+    cout<<groupes.size()<<endl;
 
     return output(tournees,groupes,fournisseurs_sous_traites);
 }
