@@ -41,6 +41,18 @@ int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournis
 	return 0;
 }
 
+vector<vector <int> > adj(vector<vector<int> > fournisseur,vector<vector<int> > A){
+    vector<vector<int> > adj;
+    int n=fournisseur.size()+2;
+    adj.resize(n);
+    for (int i=0;i<n;i++){
+        adj[i].resize(n);
+    }
+    for (int j=0;j<A.size();j++){
+        adj[A[j][0]][A[j][1]]=A[j][2];
+    }
+    return(adj);
+}
 
 
 
@@ -53,6 +65,10 @@ int main()
 	vector<tournee> groupe;
 	vector<int> fournisseurs_sous_traites;
 
+
 	// CALCUL 
+
+    for (int i=0;i<fournisseur.)
+
 	return 0;
 }
