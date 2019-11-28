@@ -41,12 +41,30 @@ int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournis
 	return 0;
 }
 
-
+int score(vector<tournee> tournees, vector<int> fournisseurs_sous_traites, vector<vector<int>> fournisseurs, vector<vector<int>> A) {
+	int cout = 0;
+	for (int i = 0; i < fournisseurs_sous_traites.size(); i++) {
+		cout += fournisseurs[fournisseurs_sous_traites[i]][1];
+	}
+	
+	for(int i = 0; i < tournees.size(); i++) {
+		for (int j = 0; j < tournees[i].nombre_de_fournisseurs; i++) {
+			cout += A[tournees[i].fournisseurs[j]][tournees[i].fournisseurs[j+1]];
+		}
+	}
+	
+	return cout;
+}
 
 
 int main()
 {
 	// PARSAGE
+	vector<int> instances, usine, depot;
+	vector<vector<int>> fournisseur, A;
+	string adresse = "C:/instance-propre.txt";
+
+	A = lecture(adresse, instances, usine, depot, fournisseur);
 
 	// TRAINTEMENT INITIAL
 	vector<tournee> tournees;
