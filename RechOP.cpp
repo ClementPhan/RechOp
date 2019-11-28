@@ -109,18 +109,17 @@ int cogroupe(groupe a,vector<vector<int> > A){
 }
 
 void optimisation(vector<groupe>& groupes, vector<vector<int> > A){
-    for (int i=0;i<10000;i++){
+    for (int i=0;i<100000;i++){
         int p=rand()%groupes.size();
         int l=rand()%groupes.size();
         int a=rand()%groupes[p].nombre_de_fournisseurs;
         int b=rand()%groupes[l].nombre_de_fournisseurs;
         int cou1=cogroupe(groupes[p],A)+cogroupe(groupes[l],A);
-        swap(groupes[p].fournisseurs[a],groupes[p].fournisseurs[a]);
+        swap(groupes[p].fournisseurs[a],groupes[l].fournisseurs[b]);
         int cou2=cogroupe(groupes[p],A)+cogroupe(groupes[l],A);
         if (cou1>cou2){
-            swap(groupes[p].fournisseurs[a],groupes[p].fournisseurs[a]);
+            swap(groupes[p].fournisseurs[a],groupes[l].fournisseurs[b]);
         }
-        cout<< cou1<<" "<<cou2<<endl;
     }
 }
 
