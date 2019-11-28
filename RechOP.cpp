@@ -12,6 +12,7 @@ int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournis
 
 	// Sous-traitants
     monFlux << "x " << fournisseurs_sous_traites.size() << " f";
+	monFlux << "x " << fournisseurs_sous_traites.size() << " f";
 	for (int i = 0; i < fournisseurs_sous_traites.size(); i++) {
 		monFlux << " " << fournisseurs_sous_traites[i];
 	}
@@ -23,10 +24,11 @@ int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournis
 	// Groupes
 	monFlux << "z " << groupes.size() << std::endl;
 
+	
 	for (int i = 0; i < groupes.size(); i++) {
 		monFlux << "C " << i << " n " << groupes[i].nombre_de_fournisseurs << " f";
 		for (int j = 0; j < groupes[i].nombre_de_fournisseurs; j++) {
-			monFlux << " " << groupes[i].fournisseurs;
+			monFlux << " " << groupes[i].fournisseurs[j];
 		}
 		monFlux << std::endl;
 	}
@@ -35,7 +37,7 @@ int output(vector<tournee> tournees, vector<groupe> groupes, vector<int> fournis
 	for (int i = 0; i < tournees.size(); i++) {
 		monFlux << "P " << i << " g " << tournees[i].groupe << " s " << tournees[i].semaine << " n " << tournees[i].semaine << " n " << tournees[i].nombre_de_fournisseurs;
 		for (int j = 0; j < tournees[i].nombre_de_fournisseurs; j++) {
-			monFlux << " " << tournees[i].fournisseurs;
+			monFlux << " " << tournees[i].fournisseurs[j];
 		}
 		monFlux << std::endl;
 	}
@@ -60,7 +62,7 @@ vector<vector <int> > adj(vector<vector<int> > fournisseur,vector<vector<int> > 
 int score(vector<tournee> tournees, vector<int> fournisseurs_sous_traites, vector<vector<int> > fournisseurs, vector<vector<int> > A) {
 	int cout = 0;
 	for (int i = 0; i < fournisseurs_sous_traites.size(); i++) {
-		cout += fournisseurs[fournisseurs_sous_traites[i]][1];
+		cout += fournisseurs[fournisseurs_sous_traites[i]][0];
 	}
 	
 	for(int i = 0; i < tournees.size(); i++) {
