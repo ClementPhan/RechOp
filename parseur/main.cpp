@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    string const adresse="C:/Users/hugues/Desktop/RechOp/Instance-propre.in";
+    string const adresse="C:/Users/hugues/Desktop/RechOp/Instance-propre.txt";
     vector<int> instances;
     vector<int> usine;
     vector<int> depot;

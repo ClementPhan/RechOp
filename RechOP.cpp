@@ -55,7 +55,7 @@ vector<vector <int> > adj(vector<vector<int> > fournisseur,vector<vector<int> > 
 }
 
 
-int score(vector<tournee> tournees, vector<int> fournisseurs_sous_traites, vector<vector<int>> fournisseurs, vector<vector<int>> A) {
+int score(vector<tournee> tournees, vector<int> fournisseurs_sous_traites, vector<vector<int> > fournisseurs, vector<vector<int> > A) {
 	int cout = 0;
 	for (int i = 0; i < fournisseurs_sous_traites.size(); i++) {
 		cout += fournisseurs[fournisseurs_sous_traites[i]][1];
@@ -75,20 +75,24 @@ int main()
 {
 	// PARSAGE
 	vector<int> instances, usine, depot;
-	vector<vector<int>> fournisseur, A;
-	string adresse = "C:/instance-propre.txt";
+    vector<vector<int> > fournisseur, A;
+    string adresse = "C:/Users/hugues/Desktop/RechOp/Instance-propre.txt";
 
 	A = lecture(adresse, instances, usine, depot, fournisseur);
 
 	// TRAINTEMENT INITIAL
 	vector<tournee> tournees;
-	vector<tournee> groupe;
+    vector<groupe> groupes;
 	vector<int> fournisseurs_sous_traites;
 
 
 	// CALCUL 
+    cout<<fournisseur.size()<<endl;
+    for (int i=0;i<fournisseur.size();i++){
+        fournisseurs_sous_traites.resize(i+1,i);
+    }
 
-    for (int i=0;i<fournisseur.)
 
-	return 0;
+
+    return output(tournees,groupes,fournisseurs_sous_traites);
 }

@@ -32,11 +32,17 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>&
         getline(myflux,ligne);
         cout<<"première ligne : "<<ligne<<endl;
         instances=split(ligne,' ');   //////////   Definition des instances  //////////
+        getline(myflux,ligne);
+        depot = split(ligne,' ');
+        getline(myflux,ligne);
+        usine = split(ligne,' ');
         vector<vector<int> > A;
+
         int j=0,i=0;
-        while (getline(myflux,ligne)&&ligne[0]=='f'){
+        while ((getline(myflux,ligne))&&(ligne[0]=='f')){
             fournisseur.resize(j+1);
             fournisseur[j]=split(ligne,' ');
+            j++;
         }
         A.resize(1);
         A[0]=split(ligne,' ');
