@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Compiled objects
+out/*
+
+# Visual studio
+.vs/*
