@@ -1,5 +1,5 @@
+#pragma once
 
-#define PARSEUR_H
 #include <vector>
 #include <iostream>
 #include <fstream>
