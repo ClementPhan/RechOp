@@ -38,3 +38,6 @@ out/*
 
 # Visual studio
 .vs/*
+
+# CMake settings
+CMakeSettings.json
