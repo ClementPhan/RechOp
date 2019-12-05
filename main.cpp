@@ -30,10 +30,11 @@ int main()
     srand(time(NULL));
 	// PARSAGE
 	vector<int> instances, usine, depot;
-    vector<vector<int> > fournisseur, A;
+    vector<vector<int> > A;
+	vector<fournisseur> fournisseurs;
     const string adresse = desktop_path() + "\\rechop\\Instance-plus-propre.csv";
 
-	A = lecture(adresse, instances, usine, depot, fournisseur);
+	A = lecture(adresse, instances, usine, depot, fournisseurs);
 
 	// TRAINTEMENT INITIAL
 	vector<tournee> tournees;
@@ -43,17 +44,17 @@ int main()
 
 	// CALCUL 
     cout<<A.size()<<endl;
-    for (int i=0;i<fournisseur.size();i++){
+    for (int i=0;i<fournisseurs.size();i++){
         fournisseurs_sous_traites.resize(i+1,i);
     }
-    vector<vector<int> > ad=adj(fournisseur,A);
+    vector<vector<int> > ad=adj(fournisseurs,A);
 
-    generation(groupes,fournisseur);
+    generation(groupes,fournisseurs);
     cout<<"ok"<<endl;
     cout<<groupes.size()<<endl;
     optimisation(groupes,ad);
-	for (int i = 0; i < groupes.size(); i++) {
-		chemins_dans_un_groupe(tournees, groupes[i], usine, depot, fournisseur, ad, instances[2]);
+	for (auto& i : groupes) {
+		chemins_dans_un_groupe(tournees, i, usine, depot, fournisseurs, ad, instances[2]);
 	}
     return output(tournees,groupes,fournisseurs_sous_traites);
 }

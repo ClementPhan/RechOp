@@ -25,8 +25,10 @@ vector<int> split(const string& s, char delimiter){
 }
 
 
-vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>& usine,vector<int>& depot,vector<vector<int> >& fournisseur){       // lire le fichier et stocker les variables dans les vecteurs.
+vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>& usine,vector<int>& depot,vector<fournisseur>& fournisseurs){       // lire le fichier et stocker les variables dans les vecteurs.
     ifstream myflux(adresse.c_str());
+	vector<vector<int> > A;
+
     if (myflux){
         string ligne;
         getline(myflux,ligne);
@@ -36,12 +38,18 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>&
         depot = split(ligne,' ');
         getline(myflux,ligne);
         usine = split(ligne,' ');
-        vector<vector<int> > A;
+
+		fournisseur temp_fournisseur;
+		vector<int> temp_vect;
 
         int j=0,i=0;
         while ((getline(myflux,ligne))&&(ligne[0]=='f')){
-            fournisseur.resize(j+1);
-            fournisseur[j]=split(ligne,' ');
+			// Les deux premiers éléments sont l'indice et le prix, les deux derniers sont les coordonnées GPS
+			temp_vect = split(ligne, ' ');
+			temp_fournisseur.indice = temp_vect[0];
+			temp_fournisseur.prix_sous_traitance = temp_vect[1];
+			temp_fournisseur.quantites = vector<int>(temp_vect.begin()+2,temp_vect.begin()+2+instances[2]); 
+			fournisseurs.push_back(temp_fournisseur);
             j++;
         }
         A.resize(1);
@@ -53,13 +61,11 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>&
               i++;
         }
         cout<<(A.size())<<endl;
-        return(A);
     }
     else {
         cout<<"impossible de lire le fichier"<<endl;
-        vector<vector<int> > A;
-        return(A);
     }
+	return(A);
 }
 
 
