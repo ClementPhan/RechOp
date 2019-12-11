@@ -1,5 +1,4 @@
 #include "traitement.h"
-#include <cassert>
 
 vector<vector <int> > adj(vector<fournisseur> fournisseurs, vector<vector<int> > A) {
 	vector<vector<int> > adj;
@@ -106,7 +105,6 @@ void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vecto
 				place_libre = capacite;
 				j = 0;
 				while ((place_libre != 0) && (i < groupe_fixe.nombre_de_fournisseurs)) { // On lance un camion, il tourne tant qu'il n'est pas rempli
-					assert(i < paires.size());
 					if (paires[i][2] >= place_libre) { // Si un camion serait totalement rempli
 						temp_tournee.fournisseurs[j] = groupe_fixe.fournisseurs[paires[i][0]];
 						temp_tournee.quantite[j] = place_libre;
