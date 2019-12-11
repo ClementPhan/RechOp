@@ -31,8 +31,13 @@
 *.out
 *.app
 
+#### Manual additions
+
 # Compiled objects
 out/*
 
 # Visual studio
 .vs/*
+
+# CMake settings
+CMakeSettings.json

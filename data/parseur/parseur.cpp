@@ -39,7 +39,7 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>&
 			temp_vect = split(ligne, ' ');
 			temp_fournisseur.indice = temp_vect[0];
 			temp_fournisseur.prix_sous_traitance = temp_vect[1];
-			temp_fournisseur.quantites = vector<int>(temp_vect.begin()+2,temp_vect.end()-2); 
+			temp_fournisseur.quantites = vector<int>(temp_vect.begin()+2,temp_vect.begin()+2+instances[2]);
 			fournisseurs.push_back(temp_fournisseur);
             j++;
         }

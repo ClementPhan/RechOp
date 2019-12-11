@@ -1,8 +1,9 @@
 #include "traitement.h"
+#include <cassert>
 
-vector<vector <int> > adj(vector<vector<int> > fournisseur, vector<vector<int> > A) {
+vector<vector <int> > adj(vector<fournisseur> fournisseurs, vector<vector<int> > A) {
 	vector<vector<int> > adj;
-	int n = fournisseur.size() + 2;
+	int n = fournisseurs.size() + 2;
 	adj.resize(n);
 	for (int i = 0; i < n; i++) {
 		adj[i].resize(n);
@@ -13,14 +14,14 @@ vector<vector <int> > adj(vector<vector<int> > fournisseur, vector<vector<int> >
 	return(adj);
 }
 
-void generation(vector<groupe>& groupes, vector<vector<int> >& fournisseur) {
+void generation(vector<groupe>& groupes, vector<fournisseur>& fournisseurs) {
 	int taille = 0;
-	for (int i = 0; i < fournisseur.size();) {
+	for (int i = 0; i < fournisseurs.size();) {
 		groupe a;
 		a.nombre_de_fournisseurs = rand() % 4 + 1;
 		for (int j = 0; j < a.nombre_de_fournisseurs; j++) {
-			while ((nettoyage(fournisseur[i])) && (i < fournisseur.size() - 1)) i++;
-			if (i < fournisseur.size() - 1) { a.fournisseurs[j] = fournisseur[i][0]; i++; }
+			while ((nettoyage(fournisseurs[i])) && (i < fournisseurs.size() - 1)) i++;
+			if (i < fournisseurs.size() - 1) { a.fournisseurs[j] = fournisseurs[i].indice; i++; }
 			else { i++; break; }
 		}
 		a.indice_du_groupe = taille;
@@ -30,10 +31,10 @@ void generation(vector<groupe>& groupes, vector<vector<int> >& fournisseur) {
 	}
 }
 
-bool nettoyage(vector<int> a) {
+bool nettoyage(fournisseur a) {
 	bool ok = true;
-	for (int j = 2; j < 10; j++) {
-		if (a[j] != 0) {
+	for (int j = 0; j < a.quantites.size(); j++) {
+		if (a.quantites[j] != 0) {
 			return(false);
 		}
 	}
@@ -51,7 +52,7 @@ int cogroupe(groupe a, vector<vector<int> > A) {
 }
 
 void optimisation(vector<groupe>& groupes, vector<vector<int> > A) {
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 10000; i++) { 
 		int p = rand() % groupes.size();
 		int l = rand() % groupes.size();
 		int a = rand() % groupes[p].nombre_de_fournisseurs;
@@ -69,7 +70,7 @@ void optimisation(vector<groupe>& groupes, vector<vector<int> > A) {
 }
 
 
-void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vector<int> usine, vector<int> depot, vector<vector<int>> fournisseur, vector<vector<int>> A, int semaines) {
+void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vector<int> usine, vector<int> depot, vector<fournisseur> fournisseurs, vector<vector<int>> A, int semaines) {
 	// trajet A/R minimum
 	int capacite = 13; // On suppose une quantité de 13
 
@@ -78,7 +79,7 @@ void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vecto
 	int j = 0;
 	tournee temp_tournee;
 
-	vector<vector<int>> paires(4, vector<int>(3)); // On cree 4 vecteurs de 3 de long
+	vector<vector<int>> paires(groupe_fixe.nombre_de_fournisseurs, vector<int>(3)); // On cree 4 vecteurs de 3 de long
 
 	for (int s = 0; s < semaines; s++) { // Pour chaque semaine
 		i = 0;
@@ -86,7 +87,7 @@ void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vecto
 		for (int l = 0; l < groupe_fixe.nombre_de_fournisseurs; l++) {
 			paires[l][0] = l; // position dans groupe_fixe.fournisseurs
 			paires[l][1] = A[depot[0]][groupe_fixe.fournisseurs[l]] + A[groupe_fixe.fournisseurs[l]][usine[0]]; // cout d'un aller retour
-			paires[l][2] = fournisseur[groupe_fixe.fournisseurs[l]][2 + s]; // quantité a recuperer
+			paires[l][2] = fournisseurs[groupe_fixe.fournisseurs[l]].quantites[s]; // quantité a recuperer
 		}
 
 		std::sort(paires.begin(), paires.end(), [](vector<int> a, vector<int> b) {
@@ -95,6 +96,7 @@ void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vecto
 
 		temp_tournee.semaine = s;
 		temp_tournee.groupe = groupe_fixe.indice_du_groupe;
+		temp_tournee.quantite;
 
 		while (i < groupe_fixe.nombre_de_fournisseurs) { //  tant que tous les fournisseurs n'ont pas été vidés
 			if (paires[i][2] == 0) { // si le fournisseur actuel n'a pas besoin d'etre visité, on passe au suivant
@@ -104,6 +106,7 @@ void chemins_dans_un_groupe(vector<tournee>& tournees, groupe groupe_fixe, vecto
 				place_libre = capacite;
 				j = 0;
 				while ((place_libre != 0) && (i < groupe_fixe.nombre_de_fournisseurs)) { // On lance un camion, il tourne tant qu'il n'est pas rempli
+					assert(i < paires.size());
 					if (paires[i][2] >= place_libre) { // Si un camion serait totalement rempli
 						temp_tournee.fournisseurs[j] = groupe_fixe.fournisseurs[paires[i][0]];
 						temp_tournee.quantite[j] = place_libre;
