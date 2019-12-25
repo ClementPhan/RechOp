@@ -1,0 +1,24 @@
+set N := P1 P2 P3 P4 1 A B C D E F T;
+set A := (P1,B) (P1,C) (P2,B) (P2,A) (B,D) (C,D) (C,T) (A,D) (D,T) (P3,A) (E,D) (F,T) (P3,E) (E,F) (P4,E) (P4,F);
+param t := T;
+param p1 := P1;
+param p2 := P2;
+param p3 := P3;
+param p4 := P4;
+param: c :=
+P1 B 14
+P1 C 19
+P2 B 10
+P2 A 9
+B D 11
+C D 8
+C T 14
+A D 25
+D T 15
+P3 A 12
+E D 4
+F T 20
+P3 E 18
+E F 7
+P4 E 26
+P4 F 10;

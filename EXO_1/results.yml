@@ -1,0 +1,73 @@
+# ==========================================================
+# = Solver Results                                         =
+# ==========================================================
+# ----------------------------------------------------------
+#   Problem Information
+# ----------------------------------------------------------
+Problem: 
+- Name: unknown
+  Lower bound: 122.0
+  Upper bound: 122.0
+  Number of objectives: 1
+  Number of constraints: 44
+  Number of variables: 49
+  Number of nonzeros: 113
+  Sense: minimize
+# ----------------------------------------------------------
+#   Solver Information
+# ----------------------------------------------------------
+Solver: 
+- Status: ok
+  Termination condition: optimal
+  Statistics: 
+    Branch and bound: 
+      Number of bounded subproblems: 147
+      Number of created subproblems: 147
+  Error rc: 0
+  Time: 0.06975221633911133
+# ----------------------------------------------------------
+#   Solution Information
+# ----------------------------------------------------------
+Solution: 
+- number of solutions: 1
+  number of solutions displayed: 1
+- Gap: 0.0
+  Status: optimal
+  Message: None
+  Objective:
+    total:
+      Value: 122
+  Variable:
+    f[B,D]:
+      Value: 280
+    f[D,T]:
+      Value: 375
+    f[E,D]:
+      Value: 95
+    f[F,T]:
+      Value: 195
+    f[P1,B]:
+      Value: 205
+    f[P2,B]:
+      Value: 75
+    f[P3,E]:
+      Value: 95
+    f[P4,F]:
+      Value: 195
+    x[E,D]:
+      Value: 1
+    x[F,T]:
+      Value: 1
+    x[P2,B]:
+      Value: 1
+    x[P3,E]:
+      Value: 1
+    x[P4,F]:
+      Value: 1
+    y[B,D]:
+      Value: 1
+    y[D,T]:
+      Value: 1
+    y[P1,B]:
+      Value: 1
+  Constraint: No values
