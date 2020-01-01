@@ -29,7 +29,6 @@ vector<vector<int> > lecture(string adresse, vector<int>& instances,vector<int>&
         depot = split(ligne,' ');
         getline(myflux,ligne);
         usine = split(ligne,' ');
-
 		fournisseur temp_fournisseur;
 		vector<int> temp_vect;
 
